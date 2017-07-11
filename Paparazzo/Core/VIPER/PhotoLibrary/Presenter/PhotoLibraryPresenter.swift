@@ -38,13 +38,13 @@ final class PhotoLibraryPresenter: PhotoLibraryModule {
     
     private func setUpView() {
         
-        view?.setTitle("Все фотографии")
-        view?.setDoneButtonTitle("Выбрать")
-        view?.setCancelButtonTitle("Отменить")
+        view?.setTitle("Foto's")
+        view?.setDoneButtonTitle("Gereed")
+        view?.setCancelButtonTitle("Sluit")
         
-        view?.setAccessDeniedTitle("Чтобы выбрать фото из галереи")
-        view?.setAccessDeniedMessage("Разрешите доступ приложению Avito к вашим фотографиям")
-        view?.setAccessDeniedButtonTitle("Разрешить доступ к галерее")
+        view?.setAccessDeniedTitle("Geen toegang")
+        view?.setAccessDeniedMessage("Er is geen toegang gegeven tot de foto-bibliotheek, verander uw privacy instellingen.")
+        view?.setAccessDeniedButtonTitle("Ga naar instellingen")
         
         interactor.observeAuthorizationStatus { [weak self] accessGranted in
             self?.view?.setAccessDeniedViewVisible(!accessGranted)
