@@ -145,7 +145,7 @@ final class MediaPickerView: UIView {
         let thumbnailRibbonInsets = UIEdgeInsets(
             top: 8,
             left: 8,
-            bottom: thumbnailRibbonAlpha < 1 ? 8 : 0,
+            bottom: 8,
             right: 8
         )
         
