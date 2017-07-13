@@ -20,6 +20,8 @@ final class ThumbnailsView: UIView, UICollectionViewDataSource, MediaRibbonLayou
     
     init() {
         
+        self.backgroundColor = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1.0)
+        
         layout = ThumbnailsViewLayout()
         layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = mediaRibbonInteritemSpacing

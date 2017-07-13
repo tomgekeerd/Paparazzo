@@ -60,7 +60,7 @@ final class MediaPickerView: UIView {
         photoTitleLabel.textColor = .white
         photoTitleLabel.layer.shadowOffset = .zero
         photoTitleLabel.layer.shadowOpacity = 0.5
-        photoTitleLabel.layer.shadowRadius = 2
+        photoTitleLabel.layer.shadowRadius = 1
         photoTitleLabel.layer.masksToBounds = false
         photoTitleLabel.alpha = 0
         
