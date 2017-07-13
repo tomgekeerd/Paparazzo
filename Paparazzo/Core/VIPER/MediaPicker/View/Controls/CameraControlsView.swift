@@ -37,11 +37,11 @@ final class CameraControlsView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        backgroundColor = .white
+        backgroundColor = UIColor(red: 249/255, green: 249/255, blue: 249/255, alpha: 1.0)
         
         photoView.backgroundColor = .lightGray
         photoView.contentMode = .scaleAspectFill
-        photoView.layer.cornerRadius = photoViewDiameter / 2
+        photoView.layer.cornerRadius = 9
         photoView.clipsToBounds = true
         photoView.isUserInteractionEnabled = true
         photoView.addGestureRecognizer(UITapGestureRecognizer(
