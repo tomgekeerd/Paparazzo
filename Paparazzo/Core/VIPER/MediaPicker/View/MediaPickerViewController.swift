@@ -151,11 +151,11 @@ final class MediaPickerViewController: UIViewController, MediaPickerViewInput {
     // MARK: - Actions
     
     func doneButtonPressed(_ sender: UIBarButtonItem) {
-        
+        continueButtonHandler?()
     }
     
     func cancelButtonPressed(_ sender: UIBarButtonItem) {
-        
+        closeButtonHandler?()
     }
     
     // MARK: - MediaPickerViewInput
@@ -215,6 +215,9 @@ final class MediaPickerViewController: UIViewController, MediaPickerViewInput {
         set { mediaPickerView.onSwipeToCameraProgressChange = newValue }
     }
     
+    var closeButtonHandler: (() -> ())?
+    var continueButtonHandler: (() -> ())?
+    
     var onViewDidLoad: (() -> ())?
     var onViewWillAppear: ((_ animated: Bool) -> ())?
     var onViewDidAppear: ((_ animated: Bool) -> ())?
@@ -251,14 +254,6 @@ final class MediaPickerViewController: UIViewController, MediaPickerViewInput {
         mediaPickerView.setPhotoTitleAlpha(alpha)
     }
     
-    func setContinueButtonTitle(_ title: String) {
-        mediaPickerView.setContinueButtonTitle(title)
-    }
-    
-    func setContinueButtonEnabled(_ enabled: Bool) {
-        mediaPickerView.setContinueButtonEnabled(enabled)
-    }
-    
     func adjustForDeviceOrientation(_ orientation: DeviceOrientation) {
         UIView.animate(withDuration: 0.25) {
             self.mediaPickerView.adjustForDeviceOrientation(orientation)
@@ -282,13 +277,13 @@ final class MediaPickerViewController: UIViewController, MediaPickerViewInput {
     }
     
     var onCloseButtonTap: (() -> ())? {
-        get { return mediaPickerView.onCloseButtonTap }
-        set { mediaPickerView.onCloseButtonTap = newValue }
+        get { return self.closeButtonHandler }
+        set { self.closeButtonHandler = newValue }
     }
     
     var onContinueButtonTap: (() -> ())? {
-        get { return mediaPickerView.onContinueButtonTap }
-        set { mediaPickerView.onContinueButtonTap = newValue }
+        get { return self.continueButtonHandler }
+        set { self.continueButtonHandler = newValue }
     }
     
     var onCameraToggleButtonTap: (() -> ())? {

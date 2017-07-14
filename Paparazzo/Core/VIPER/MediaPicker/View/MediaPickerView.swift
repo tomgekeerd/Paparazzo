@@ -9,15 +9,11 @@ final class MediaPickerView: UIView {
     private let photoControlsView = PhotoControlsView()
     
     private let photoLibraryPeepholeView = UIImageView()
-    private let closeButton = UIButton()
-    private let continueButton = UIButton()
     private let photoTitleLabel = UILabel()
     private let flashView = UIView()
     
     private let thumbnailRibbonView: ThumbnailsView
     private let photoPreviewView: PhotoPreviewView
-    
-    private var closeAndContinueButtonsSwapped = false
     
     // MARK: - Constants
     
@@ -30,11 +26,6 @@ final class MediaPickerView: UIView {
     
     private let controlsCompactHeight = CGFloat(54) // (iPhone 4 height) - (iPhone 4 width) * 4/3 (photo aspect ratio) = 53,333...
     private let controlsExtendedHeight = CGFloat(80)
-    
-    private let closeButtonSize = CGSize(width: 38, height: 38)
-    
-    private let continueButtonHeight = CGFloat(38)
-    private let continueButtonContentInsets = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
     
     // MARK: - Helpers
     
@@ -54,8 +45,6 @@ final class MediaPickerView: UIView {
         
         flashView.backgroundColor = .white
         flashView.alpha = 0
-        
-        setupButtons()
         
         photoTitleLabel.textColor = .white
         photoTitleLabel.layer.shadowOffset = .zero
@@ -83,31 +72,9 @@ final class MediaPickerView: UIView {
         addSubview(cameraControlsView)
         addSubview(photoControlsView)
         addSubview(thumbnailRibbonView)
-        addSubview(closeButton)
         addSubview(photoTitleLabel)
-        addSubview(continueButton)
         
         setMode(.camera)
-    }
-    
-    private func setupButtons() {
-        closeButton.layer.cornerRadius = closeButtonSize.height / 2
-        closeButton.layer.masksToBounds = true
-        closeButton.size = closeButtonSize
-        closeButton.addTarget(
-            self,
-            action: #selector(onCloseButtonTap(_:)),
-            for: .touchUpInside
-        )
-        
-        continueButton.layer.cornerRadius = continueButtonHeight / 2
-        continueButton.layer.masksToBounds = true
-        continueButton.contentEdgeInsets = continueButtonContentInsets
-        continueButton.addTarget(
-            self,
-            action: #selector(onContinueButtonTap(_:)),
-            for: .touchUpInside
-        )
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -165,7 +132,6 @@ final class MediaPickerView: UIView {
             height: photoRibbonHeight
         )
         
-        layoutCloseAndContinueButtons()
         layoutPhotoTitleLabel()
 
         flashView.frame = cameraFrame
@@ -286,9 +252,6 @@ final class MediaPickerView: UIView {
         )
     }
     
-    var onCloseButtonTap: (() -> ())?
-    var onContinueButtonTap: (() -> ())?
-    
     var onCameraToggleButtonTap: (() -> ())? {
         get { return cameraControlsView.onCameraToggleButtonTap }
         set { cameraControlsView.onCameraToggleButtonTap = newValue }
@@ -351,12 +314,7 @@ final class MediaPickerView: UIView {
         }
         
         let transform = CGAffineTransform(deviceOrientation: orientation)
-        
-        closeAndContinueButtonsSwapped = (orientation == .landscapeLeft)
-        
-        closeButton.transform = transform
-        continueButton.transform = transform
-        
+                
         cameraControlsView.setControlsTransform(transform)
         photoControlsView.setControlsTransform(transform)
         thumbnailRibbonView.setControlsTransform(transform)
@@ -394,50 +352,11 @@ final class MediaPickerView: UIView {
         photoTitleLabel.alpha = alpha
     }
     
-    func setContinueButtonTitle(_ title: String) {
-        continueButton.setTitle(title, for: .normal)
-        continueButton.size = CGSize(width: continueButton.sizeThatFits().width, height: continueButtonHeight)
-    }
-    
-    func setContinueButtonEnabled(_ enabled: Bool) {
-        continueButton.isEnabled = enabled
-    }
-    
     func setTheme(_ theme: MediaPickerRootModuleUITheme) {
 
         cameraControlsView.setTheme(theme)
         photoControlsView.setTheme(theme)
         thumbnailRibbonView.setTheme(theme)
-
-        continueButton.setTitleColor(theme.cameraContinueButtonTitleColor, for: .normal)
-        continueButton.titleLabel?.font = theme.cameraContinueButtonTitleFont
-
-        closeButton.setImage(theme.closeCameraIcon, for: .normal)
-        
-        continueButton.setTitleColor(
-            theme.cameraContinueButtonTitleColor,
-            for: .normal
-        )
-        continueButton.setTitleColor(
-            theme.cameraContinueButtonTitleHighlightedColor,
-            for: .highlighted
-        )
-        
-        let onePointSize = CGSize(width: 1, height: 1)
-        for button in [continueButton, closeButton] {
-            button.setBackgroundImage(
-                UIImage.imageWithColor(theme.cameraButtonsBackgroundNormalColor, imageSize: onePointSize),
-                for: .normal
-            )
-            button.setBackgroundImage(
-                UIImage.imageWithColor(theme.cameraButtonsBackgroundHighlightedColor, imageSize: onePointSize),
-                for: .highlighted
-            )
-            button.setBackgroundImage(
-                UIImage.imageWithColor(theme.cameraButtonsBackgroundDisabledColor, imageSize: onePointSize),
-                for: .disabled
-            )
-        }
     }
     
     func setShowsCropButton(_ showsCropButton: Bool) {
@@ -451,37 +370,8 @@ final class MediaPickerView: UIView {
     
     // MARK: - Private
     
-    private func layoutCloseAndContinueButtons() {
-        
-        let leftButton = closeAndContinueButtonsSwapped ? continueButton : closeButton
-        let rightButton = closeAndContinueButtonsSwapped ? closeButton : continueButton
-        
-        leftButton.frame = CGRect(
-            x: 8,
-            y: 8,
-            width: leftButton.width,
-            height: leftButton.height
-        )
-        
-        rightButton.frame = CGRect(
-            x: bounds.right - 8 - rightButton.width,
-            y: 8,
-            width: rightButton.width,
-            height: rightButton.height
-        )
-    }
-    
     private func layoutPhotoTitleLabel() {
         photoTitleLabel.sizeToFit()
         photoTitleLabel.centerX = bounds.centerX
-        photoTitleLabel.centerY = closeButton.centerY
-    }
-    
-    @objc private func onCloseButtonTap(_: UIButton) {
-        onCloseButtonTap?()
-    }
-    
-    @objc private func onContinueButtonTap(_: UIButton) {
-        onContinueButtonTap?()
     }
 }

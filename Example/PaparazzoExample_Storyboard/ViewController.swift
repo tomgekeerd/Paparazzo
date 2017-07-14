@@ -27,9 +27,7 @@ final class ViewController: UIViewController {
             cropCanvasSize: CGSize(width: 1280, height: 960),
             configuration: { [weak self] module in
                 weak var module = module
-                
-                module?.setContinueButtonTitle("Done")
-                
+                                
                 module?.onFinish = { mediaPickerItems in
                     module?.dismissModule()
                     
