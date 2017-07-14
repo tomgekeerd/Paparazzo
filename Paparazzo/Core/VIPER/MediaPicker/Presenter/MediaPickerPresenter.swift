@@ -30,6 +30,15 @@ final class MediaPickerPresenter: MediaPickerModule {
     var onFinish: (([MediaPickerItem]) -> ())?
     var onCancel: (() -> ())?
     
+    func setContinueButtonTitle(_ title: String) {
+        continueButtonTitle = title
+        view?.setContinueButtonTitle(title)
+    }
+    
+    func setContinueButtonEnabled(_ enabled: Bool) {
+        view?.setContinueButtonEnabled(enabled)
+    }
+    
     func setItems(_ items: [MediaPickerItem], selectedItem: MediaPickerItem?) {
         addItems(items, fromCamera: false) { [weak self] in
             if let selectedItem = selectedItem {
@@ -53,6 +62,7 @@ final class MediaPickerPresenter: MediaPickerModule {
     private func setUpView() {
         weak var `self` = self
         
+        view?.setContinueButtonTitle(continueButtonTitle ?? "Gereed")
         view?.setPhotoTitle("Foto 1")
         
         view?.setCameraControlsEnabled(false)
@@ -112,6 +122,7 @@ final class MediaPickerPresenter: MediaPickerModule {
             // Кроме того, если быстро нажать "Далее", то фотка не попадет в module result, поэтому "Далее" также блокируем
             self?.view?.setShutterButtonEnabled(false)
             self?.view?.setPhotoLibraryButtonEnabled(false) // AI-3207
+            self?.view?.setContinueButtonEnabled(false)
             self?.view?.animateFlash()
             
             self?.cameraModuleInput.takePhoto { photo in
@@ -122,6 +133,7 @@ final class MediaPickerPresenter: MediaPickerModule {
                 
                 self?.view?.setShutterButtonEnabled(true)
                 self?.view?.setPhotoLibraryButtonEnabled(true)
+                self?.view?.setContinueButtonEnabled(true)
             }
         }
         
@@ -170,6 +182,18 @@ final class MediaPickerPresenter: MediaPickerModule {
         
         view?.onSwipeToCameraProgressChange = { progress in
             self?.view?.setPhotoTitleAlpha(1 - progress)
+        }
+        
+        view?.onCloseButtonTap = {
+            self?.cameraModuleInput.setFlashEnabled(false, completion: nil)
+            self?.onCancel?()
+        }
+        
+        view?.onContinueButtonTap = {
+            self?.cameraModuleInput.setFlashEnabled(false, completion: nil)
+            self?.interactor.items { items, _ in
+                self?.onFinish?(items)
+            }
         }
         
         view?.onCropButtonTap = {

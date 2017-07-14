@@ -72,7 +72,9 @@ final class ExamplePresenter {
         module.onItemsAdd = { _ in debugPrint("mediaPickerDidAddItems") }
         module.onItemUpdate = { _ in debugPrint("mediaPickerDidUpdateItem") }
         module.onItemRemove = { _ in debugPrint("mediaPickerDidRemoveItem") }
-                
+        
+        module.setContinueButtonTitle("Готово")
+        
         module.onCancel = { [weak module] in
             module?.dismissModule()
         }
