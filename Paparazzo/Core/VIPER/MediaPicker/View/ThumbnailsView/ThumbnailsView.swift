@@ -36,9 +36,7 @@ final class ThumbnailsView: UIView, UICollectionViewDataSource, MediaRibbonLayou
         
         collectionView.dataSource = self
         collectionView.delegate = self
-        
-        backgroundColor = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1.0)
-
+                
         addSubview(collectionView)
     }
     

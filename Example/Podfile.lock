@@ -83,9 +83,9 @@ DEPENDENCIES:
 
 EXTERNAL SOURCES:
   ImageSource:
-    :path: "../"
+    :path: ../
   Paparazzo:
-    :path: "../"
+    :path: ../
 
 SPEC CHECKSUMS:
   Alamofire: dc44b1600b800eb63da6a19039a0083d62a6a62d
@@ -98,4 +98,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: de862853608cf1d1ac04ebaaa29cb02cccfc5328
 
-COCOAPODS: 1.2.0
+COCOAPODS: 1.2.1
