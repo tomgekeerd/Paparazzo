@@ -32,6 +32,10 @@ final class MediaPickerViewController: UIViewController, MediaPickerViewInput {
         self.title = ""
         
         let navBar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 64))
+        navBar.barTintColor = UIColor(red: 3/255, green: 197/255, blue: 170/255, alpha: 1.0)
+        navBar.tintColor = UIColor.white
+        navBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+        
         navBar.items = [self.navItem]
         self.view.addSubview(navBar)
         
