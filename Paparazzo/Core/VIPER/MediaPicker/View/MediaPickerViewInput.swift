@@ -22,8 +22,6 @@ protocol MediaPickerViewInput: class {
     func setPhotoTitle(_: String)
     func setPhotoTitleStyle(_: MediaPickerTitleStyle)
     func setPhotoTitleAlpha(_: CGFloat)
-    func setContinueButtonTitle(_: String)
-    func setContinueButtonEnabled(_: Bool)
 
     func setLatestLibraryPhoto(_: ImageSource?)
     
@@ -45,10 +43,7 @@ protocol MediaPickerViewInput: class {
     func setCameraButtonVisible(_: Bool)
     func setShutterButtonEnabled(_: Bool)
     func setPhotoLibraryButtonEnabled(_: Bool)
-    
-    var onCloseButtonTap: (() -> ())? { get set }
-    var onContinueButtonTap: (() -> ())? { get set }
-    
+        
     var onCameraToggleButtonTap: (() -> ())? { get set }
     func setCameraToggleButtonVisible(_: Bool)
     

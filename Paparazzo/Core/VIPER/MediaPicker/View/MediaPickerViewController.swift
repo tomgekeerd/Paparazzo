@@ -233,15 +233,7 @@ final class MediaPickerViewController: UIViewController, MediaPickerViewInput {
     func setPhotoTitleAlpha(_ alpha: CGFloat) {
         mediaPickerView.setPhotoTitleAlpha(alpha)
     }
-    
-    func setContinueButtonTitle(_ title: String) {
-        mediaPickerView.setContinueButtonTitle(title)
-    }
-    
-    func setContinueButtonEnabled(_ enabled: Bool) {
-        mediaPickerView.setContinueButtonEnabled(enabled)
-    }
-    
+
     func adjustForDeviceOrientation(_ orientation: DeviceOrientation) {
         UIView.animate(withDuration: 0.25) {
             self.mediaPickerView.adjustForDeviceOrientation(orientation)
