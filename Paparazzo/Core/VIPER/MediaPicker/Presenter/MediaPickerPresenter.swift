@@ -53,7 +53,7 @@ final class MediaPickerPresenter: MediaPickerModule {
     private func setUpView() {
         weak var `self` = self
         
-        view?.setPhotoTitle("Foto 1")
+        view?.setPhotoTitle("Camera")
         
         view?.setCameraControlsEnabled(false)
         
@@ -165,6 +165,7 @@ final class MediaPickerPresenter: MediaPickerModule {
         }
         
         view?.onSwipeToCamera = {
+            self?.setTitleForPhotoWithIndex(-1)
             self?.view?.selectCamera()
         }
         
@@ -237,6 +238,7 @@ final class MediaPickerPresenter: MediaPickerModule {
     }
     
     private func setTitleForPhotoWithIndex(_ index: Int) {
+        if index == -1 { view?.setPhotoTitle("Camera"); return }
         view?.setPhotoTitle("Foto \(index + 1)")
     }
     
