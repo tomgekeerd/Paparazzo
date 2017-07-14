@@ -156,7 +156,7 @@ final class MediaPickerView: UIView {
             ? thumbnailHeightForSmallScreen + thumbnailRibbonInsets.top + thumbnailRibbonInsets.bottom
             : bottomPanelHeight - controlsHeight
         
-        thumbnailRibbonView.backgroundColor = UIColor.white.withAlphaComponent(thumbnailRibbonAlpha)
+        thumbnailRibbonView.backgroundColor = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: thumbnailRibbonAlpha)
         thumbnailRibbonView.contentInsets = thumbnailRibbonInsets
         thumbnailRibbonView.layout(
             left: bounds.left,
