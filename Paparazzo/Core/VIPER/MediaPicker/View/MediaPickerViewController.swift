@@ -28,9 +28,16 @@ final class MediaPickerViewController: UIViewController, MediaPickerViewInput {
         
         navigationController?.setNavigationBarHidden(false, animated: animated)
         UIApplication.shared.setStatusBarHidden(false, with: .fade)
-        
         navigationItem.hidesBackButton = true
+        
+        // Set nav buttons
     
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneButtonPressed(_:)))
+        navigationItem.rightBarButtonItem = doneButton
+        
+        let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelButtonPressed(_:)))
+        navigationItem.leftBarButtonItem = cancelButton
+        
         onViewWillAppear?(animated)
     }
     
@@ -139,6 +146,16 @@ final class MediaPickerViewController: UIViewController, MediaPickerViewInput {
     
     override var prefersStatusBarHidden: Bool {
         return false
+    }
+    
+    // MARK: - Actions
+    
+    func doneButtonPressed(_ sender: UIBarButtonItem) {
+        
+    }
+    
+    func cancelButtonPressed(_ sender: UIBarButtonItem) {
+        
     }
     
     // MARK: - MediaPickerViewInput
