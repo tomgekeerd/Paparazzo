@@ -6,6 +6,13 @@ final class MediaPickerViewController: UIViewController, MediaPickerViewInput {
     private var isBeingRotated: Bool = false
     private let mediaPickerView = MediaPickerView()
     private var layoutSubviewsPromise = Promise<Void>()
+    private let navItem = UINavigationItem(title: "")
+    
+    override var title: String? {
+        didSet {
+            self.navItem.title = title
+        }
+    }
     
     // MARK: - UIViewController
     
@@ -19,6 +26,23 @@ final class MediaPickerViewController: UIViewController, MediaPickerViewInput {
         super.viewDidLoad()
         automaticallyAdjustsScrollViewInsets = false
         onViewDidLoad?()
+        
+        // Set nav bar
+        
+        self.title = ""
+        
+        let navBar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 64))
+        navBar.items = [self.navItem]
+        self.view.addSubview(navBar)
+        
+        // Set nav buttons
+        
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneButtonPressed(_:)))
+        self.navItem.rightBarButtonItem = doneButton
+        
+        let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelButtonPressed(_:)))
+        self.navItem.leftBarButtonItem = cancelButton
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -26,17 +50,12 @@ final class MediaPickerViewController: UIViewController, MediaPickerViewInput {
         
         layoutMediaPickerView(interfaceOrientation: interfaceOrientation)
         
-        navigationController?.setNavigationBarHidden(false, animated: animated)
+        if let navController = self.navigationController {
+            navigationController?.setNavigationBarHidden(false, animated: animated)
+        }
+
         UIApplication.shared.setStatusBarHidden(false, with: .fade)
         navigationItem.hidesBackButton = true
-        
-        // Set nav buttons
-    
-        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneButtonPressed(_:)))
-        navigationItem.rightBarButtonItem = doneButton
-        
-        let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelButtonPressed(_:)))
-        navigationItem.leftBarButtonItem = cancelButton
         
         onViewWillAppear?(animated)
     }

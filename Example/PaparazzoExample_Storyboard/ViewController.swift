@@ -41,7 +41,8 @@ final class ViewController: UIViewController {
             }
         )
         
-        navigationController?.pushViewController(mediaPickerController, animated: true)
+        self.show(mediaPickerController, sender: true)
+
     }
     
     @IBAction private func showPhotoLibrary() {
