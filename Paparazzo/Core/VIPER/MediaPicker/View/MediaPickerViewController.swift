@@ -26,9 +26,11 @@ final class MediaPickerViewController: UIViewController, MediaPickerViewInput {
         
         layoutMediaPickerView(interfaceOrientation: interfaceOrientation)
         
-        navigationController?.setNavigationBarHidden(true, animated: animated)
-        UIApplication.shared.setStatusBarHidden(true, with: .fade)
+        navigationController?.setNavigationBarHidden(false, animated: animated)
+        UIApplication.shared.setStatusBarHidden(false, with: .fade)
         
+        navigationItem.hidesBackButton = true
+    
         onViewWillAppear?(animated)
     }
     
@@ -136,7 +138,7 @@ final class MediaPickerViewController: UIViewController, MediaPickerViewInput {
     }
     
     override var prefersStatusBarHidden: Bool {
-        return true
+        return false
     }
     
     // MARK: - MediaPickerViewInput
@@ -219,7 +221,9 @@ final class MediaPickerViewController: UIViewController, MediaPickerViewInput {
     }
     
     func setPhotoTitle(_ title: String) {
-        mediaPickerView.setPhotoTitle(title)
+        DispatchQueue.main.async {
+            self.title = title
+        }
     }
     
     func setPhotoTitleStyle(_ style: MediaPickerTitleStyle) {
