@@ -19,6 +19,7 @@ public final class MediaPickerAssemblyImpl: MediaPickerAssembly {
         selectedItem: MediaPickerItem?,
         maxItemsCount: Int?,
         cropEnabled: Bool,
+        selfieEnabled: Bool,
         cropCanvasSize: CGSize,
         configuration: (MediaPickerModule) -> ())
         -> UIViewController
@@ -52,6 +53,7 @@ public final class MediaPickerAssemblyImpl: MediaPickerAssembly {
         viewController.setCameraView(cameraView)
         viewController.setTheme(theme)
         viewController.setShowsCropButton(cropEnabled)
+        viewController.setCameraToggleButtonVisible(selfieEnabled)
         
         presenter.view = viewController
         

@@ -23,7 +23,8 @@ final class ViewController: UIViewController {
             items: [],
             selectedItem: nil,
             maxItemsCount: 20,
-            cropEnabled: true,
+            cropEnabled: false,
+            selfieEnabled: false,
             cropCanvasSize: CGSize(width: 1280, height: 960),
             configuration: { [weak self] module in
                 weak var module = module

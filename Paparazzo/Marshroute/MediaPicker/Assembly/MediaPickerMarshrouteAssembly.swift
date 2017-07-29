@@ -7,6 +7,7 @@ public protocol MediaPickerMarshrouteAssembly: class {
         selectedItem: MediaPickerItem?,
         maxItemsCount: Int?,
         cropEnabled: Bool,
+        selfieEnabled: Bool,
         cropCanvasSize: CGSize,
         routerSeed: RouterSeed,
         configuration: (MediaPickerModule) -> ())

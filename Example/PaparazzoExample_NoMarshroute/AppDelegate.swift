@@ -33,6 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 selectedItem: nil,
                 maxItemsCount: 20,
                 cropEnabled: true,
+                selfieEnabled: false,
                 cropCanvasSize: CGSize(width: 1280, height: 960),
                 configuration: { module in
                     weak var module = module

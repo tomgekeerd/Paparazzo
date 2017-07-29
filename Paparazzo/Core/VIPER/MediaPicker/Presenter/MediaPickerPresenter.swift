@@ -72,10 +72,6 @@ final class MediaPickerPresenter: MediaPickerModule {
             self?.view?.setFlashButtonOn(isFlashEnabled)
         }
         
-        cameraModuleInput.canToggleCamera { canToggleCamera in
-            self?.view?.setCameraToggleButtonVisible(canToggleCamera)
-        }
-        
         interactor.observeDeviceOrientation { deviceOrientation in
             self?.view?.adjustForDeviceOrientation(deviceOrientation)
         }

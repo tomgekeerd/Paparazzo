@@ -20,6 +20,7 @@ public final class MediaPickerMarshrouteAssemblyImpl: MediaPickerMarshrouteAssem
         selectedItem: MediaPickerItem?,
         maxItemsCount: Int?,
         cropEnabled: Bool,
+        selfieEnabled: Bool,
         cropCanvasSize: CGSize,
         routerSeed: RouterSeed,
         configuration: (MediaPickerModule) -> ())
@@ -53,6 +54,7 @@ public final class MediaPickerMarshrouteAssemblyImpl: MediaPickerMarshrouteAssem
         viewController.setCameraView(cameraView)
         viewController.setTheme(theme)
         viewController.setShowsCropButton(cropEnabled)
+        viewController.setCameraToggleButtonVisible(selfieEnabled)
         
         presenter.view = viewController
         
